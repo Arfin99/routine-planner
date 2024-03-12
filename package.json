@@ -7,8 +7,9 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend",
-    "development": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm run dev --prefix frontend",
+    "development": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [
     "node",
