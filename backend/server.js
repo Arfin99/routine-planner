@@ -9,13 +9,9 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Backend Service is Running..");
-});
-
-app.get("/api/products", (req, res) => {
-  res.send("products");
-});
+// app.get("/api/products", (req, res) => {
+//   res.send("products");
+// });
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, '/uploads')));
