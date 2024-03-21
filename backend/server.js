@@ -1,33 +1,41 @@
 import express from "express";
-import path from "path";
-import dotenv from "dotenv";
-dotenv.config();
-// import connectDB from "./config/db.js";
-const port = process.env.PORT || 5000;
+import cors from "cors";
+import { port } from "./configuration/environment_prop_access.js";
+import connectDB from "./db/connectDB.js";
+import userRoutes from "./routes/user.js";
 
-// connectDB();
+connectDB();
 
 const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.use('/api/users', userRoutes);
+
+
+app.get("/", (req, res) => {
+  res.send("Server is ok....");
+});
 
 // app.get("/api/products", (req, res) => {
 //   res.send("products");
 // });
 
-const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, '/uploads')));
+// const __dirname = path.resolve();
+// app.use("/uploads", express.static(path.join(__dirname, '/uploads')));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
-  );
-} else {
-//   const __dirname = path.resolve();
-//   app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-  app.get("/", (req, res) => {
-    res.send("API is running....");
-  });
-}
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+//   );
+// } else {
+// //   const __dirname = path.resolve();
+// //   app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+//   app.get("/", (req, res) => {
+//     res.send("API is running....");
+//   });
+// }
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
