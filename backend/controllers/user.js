@@ -20,6 +20,8 @@ export const userRegistration = async (req, res) => {
   res.send(token);
 };
 
-export const userDetails = async () => {
-  return "user Details";
+export const userProfile = async (req, res) => {
+  const { _id } = req.user;
+  const profile = await User.findById(_id);
+  res.send(profile);
 };
