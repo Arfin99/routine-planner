@@ -3,6 +3,7 @@ import cors from "cors";
 import { port } from "./configuration/environment_prop_access.js";
 import connectDB from "./db/connectDB.js";
 import userRoutes from "./routes/user.js";
+import authRoutes from "./routes/auth.js";
 
 connectDB();
 
@@ -10,8 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/users', userRoutes);
-
+app.use("/api/user", userRoutes);
+app.use("/api/login", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is ok....");
